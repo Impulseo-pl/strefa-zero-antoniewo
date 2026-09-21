@@ -1,0 +1,459 @@
+/* ==========================================================================
+   STREFA ZERO ANTONIEWO - warstwa projektu "POLIGON"
+   Dedykowany motyw paintballowy: ciemny teren, pomarańcz kulki, limonka,
+   taśma ostrzegawcza, celownik, ślady farby.
+   Ładowana PO styles.css, więc wygrywa przy równej specyficzności.
+   ========================================================================== */
+
+/* --- 1. TŁO: oliwkowa czerń + siatka maskująca + poświata reflektora ----- */
+body{
+  background-color:var(--paper);
+  background-image:
+    radial-gradient(1200px 620px at 78% -8%, rgba(255,106,26,.10), transparent 62%),
+    radial-gradient(900px 520px at 6% 12%, rgba(188,215,47,.06), transparent 60%),
+    repeating-linear-gradient(135deg, rgba(243,241,231,.022) 0 2px, transparent 2px 9px);
+}
+main > section{position:relative}
+::selection{background:var(--accent);color:#12140D}
+
+/* --- 2. TYPOGRAFIA: kondensowana, wojskowa, wersaliki ------------------- */
+h1,h2,.gateway .g-ttl,.strip .k,.sr-book{
+  font-family:var(--font-display);
+  text-transform:uppercase;
+  letter-spacing:.005em;
+  font-weight:700;
+}
+h1{line-height:1.02}
+h2{line-height:1.06;font-size:clamp(2.2rem,1.6rem + 2.6vw,3.6rem)}
+h3{font-family:var(--font-display);letter-spacing:.01em}
+.lead,.muted,p{color:var(--ink-soft)}
+.muted{color:var(--muted)}
+
+/* nagłówek sekcji dostaje numer poligonu i kreskę celownika */
+.eyebrow{
+  color:var(--lime);
+  font-weight:600;
+  letter-spacing:.24em;
+  gap:.6em;
+}
+.eyebrow::before{
+  content:"";width:26px;height:2px;background:var(--lime);flex:none;
+  box-shadow:0 -5px 0 -1px var(--lime),0 5px 0 -1px var(--lime);
+}
+
+/* --- 3. TAŚMA OSTRZEGAWCZA - znak rozpoznawczy tej strony ---------------- */
+.tasma{
+  height:12px;
+  background:repeating-linear-gradient(-45deg,
+    var(--accent) 0 18px, #12140D 18px 36px);
+  opacity:.92;
+}
+.tasma-cienka{height:6px;opacity:.75}
+
+/* --- 4. PASEK NAWIGACJI -------------------------------------------------- */
+.nav{background:rgba(10,12,6,.72);border-bottom:1px solid rgba(243,241,231,.10)}
+.nav.nav-solid,.nav.scrolled{background:rgba(10,12,6,.94)}
+.nav .nav-links a{color:var(--ink);letter-spacing:.06em;text-transform:uppercase;font-size:.88rem;font-weight:600}
+.nav .nav-links a:hover{color:var(--accent)}
+.nav .nav-links a.active{color:var(--lime)}
+.nav .nav-links a.btn-accent{color:#12140D}
+.nav-toggle span{background:var(--ink)}
+
+/* --- 5. PRZYCISKI: ścięty narożnik, farba pod spodem --------------------- */
+.btn{
+  border-radius:2px;
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 11px),calc(100% - 11px) 100%,0 100%);
+  text-transform:uppercase;
+  letter-spacing:.09em;
+  font-weight:700;
+  font-family:var(--font-display);
+  position:relative;
+  transition:transform .18s cubic-bezier(.25,.46,.45,.94),
+             background-color .18s ease,color .18s ease,border-color .18s ease;
+}
+.btn:hover,.btn:focus-visible{transform:translateY(-2px)}
+.btn:active{transform:translateY(0)}
+
+/* Silnik daje KAŻDEMU klockowi na hover tło var(--accent-d) i BIAŁY tekst.
+   Po przejściu na paletę paintballową --accent-d jest jasnym pomarańczem,
+   więc biały napis spadłby do ~2,2:1. Na podświetleniu piszemy więc czernią. */
+@media(hover:hover){
+  .btn:hover,.btn:focus-visible,
+  .btn-on-dark:hover,.btn-on-dark:focus-visible,
+  .cta .btn:hover,.cta .btn:focus-visible,
+  .nav .nav-links a.btn:hover,.nav .nav-links a.btn:focus-visible,
+  .sticky-reserve a:hover,.sticky-reserve a:focus-visible,
+  .op-google:hover,.op-google:focus-visible{
+    background:var(--accent-d);border-color:var(--accent-d);color:#12140D;
+    filter:brightness(1.1);
+    box-shadow:0 0 0 3px var(--accent-soft),0 10px 24px -14px rgba(0,0,0,.6)}
+  /* wiersze kroków na ofercie reagowały bez unoszenia - jedna reakcja na całej stronie */
+  .svc-row:hover,.svc-row:focus-within{transform:translateY(-2px)}
+  .sticky-reserve a.sr-book:hover,.sticky-reserve a.sr-call:hover,
+  .sticky-reserve a.sr-book:focus-visible,.sticky-reserve a.sr-call:focus-visible{
+    filter:brightness(1.1)}
+  .btn:hover .arr,.btn:focus-visible .arr,
+  .sticky-reserve a:hover .ico-tel,
+  .op-google:hover,.op-google:hover *{color:#12140D}
+  .op-google:hover .op-g-ico *{color:inherit}
+  /* karty zostają ciemne - pomarańczowa płachta na całej karcie zjadałaby tekst */
+  .svc:hover,.trust-card:hover,.op-card:hover,.takt:hover,.faq-item:hover{
+    background:#262B1D;border-color:rgba(255,106,26,.45);color:var(--ink)}
+  .svc:hover *,.trust-card:hover *,.op-card:hover *,.takt:hover *{color:inherit}
+  .svc:hover h3,.trust-card:hover h3,.takt:hover h3{color:var(--ink)}
+  .svc:hover p,.trust-card:hover p,.takt:hover p{color:var(--muted)}
+  .op-card:hover .op-star{color:#FFC61A}
+  .op-card:hover .op-autor{color:var(--lime)}
+}
+.btn-accent{background:var(--accent);color:#12140D;box-shadow:0 10px 26px -14px rgba(255,106,26,.9)}
+.btn-accent:hover{background:#FF8235;color:#12140D}
+.btn-ghost,.btn-on-dark{color:var(--ink);border:1px solid rgba(243,241,231,.34);background:rgba(243,241,231,.03)}
+.btn-ghost:hover,.btn-on-dark:hover{border-color:var(--lime);color:var(--lime);background:rgba(188,215,47,.08)}
+.btn-light{background:var(--lime);color:#12140D;box-shadow:0 10px 26px -14px rgba(188,215,47,.8)}
+.btn-light:hover{background:#CBE44A;color:#12140D}
+.btn-ghost-cta{color:var(--ink);border-color:rgba(243,241,231,.34)}
+
+/* --- 6. HERO: kadr poligonu + wielki napis ------------------------------- */
+.hero-cine{min-height:clamp(520px,72vh,680px);min-height:clamp(520px,72svh,680px)}
+/* cały pierwszy ekran ma się zmieścić w oknie - odstępy policzone, nie zgadnięte */
+.hero-cine .wrap{padding-block:var(--space-7)}
+.hero-cine .lead{margin-bottom:var(--space-5)}
+.hero-cine .hero-actions{margin-bottom:0}
+.hero-cine::after{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    linear-gradient(100deg,rgba(10,12,6,.86) 0%,rgba(10,12,6,.74) 38%,rgba(10,12,6,.5) 74%,rgba(10,12,6,.42) 100%),
+    linear-gradient(180deg,rgba(10,12,6,.5) 0%,rgba(10,12,6,.42) 42%,rgba(10,12,6,.7) 82%,#12140D 100%);
+}
+.hero-cine img{filter:saturate(1.06) contrast(1.06)}
+.hero-cine .hero-copy{position:relative;z-index:3}
+.hero-cine h1{
+  text-shadow:0 4px 26px rgba(0,0,0,.72);
+  font-size:clamp(2.3rem,1.7rem + 2.5vw,3.9rem);
+  margin-bottom:var(--space-4);
+}
+/* drugi wiersz limonką: pomarańcz na przejaśnionym niebie schodził do 1:1 (pomiar bramki) */
+.hero-cine h1 em{font-style:normal;color:var(--lime);display:block}
+.hero-cine .lead{color:#F1EFE6;text-shadow:0 2px 16px rgba(0,0,0,.75);max-width:52ch}
+.hero-cine .brandmark{color:var(--lime);letter-spacing:.28em;text-transform:uppercase;font-weight:600}
+.hero-cine .brandmark .bm-line::after{background:var(--lime)}
+
+/* odznaka Google na ciemnym tle */
+.g-badge{background:rgba(10,12,6,.55);border:1px solid rgba(243,241,231,.18);border-radius:999px;padding:.5em .95em}
+.gb-txt,.gb-ocena{color:#F3F1E7}
+
+/* --- 7. PAS DANYCH (strip) - tablica poligonowa -------------------------- */
+.strip{background:var(--dark);border-block:1px solid rgba(243,241,231,.10)}
+.strip .wrap{padding-block:var(--space-7)}
+.strip .item{position:relative;padding-left:var(--space-5)}
+.strip .item::before{
+  content:"";position:absolute;left:0;top:.35em;width:3px;height:calc(100% - .7em);
+  background:var(--accent);
+}
+.strip .k{color:#F3F1E7;font-size:1.32rem;letter-spacing:.02em}
+.strip .v{color:var(--muted);letter-spacing:.06em;text-transform:uppercase;font-size:.82rem;font-weight:600}
+
+/* --- 8. KARTY: ciemne, ścięty narożnik, kreska akcentu ------------------- */
+.svc,.trust-card,.op-card,.form,.om-item,.info-row,.faq-item{
+  background:var(--paper-3);
+  border:1px solid rgba(243,241,231,.10);
+  border-radius:2px;
+  box-shadow:none;
+  color:var(--ink);
+}
+.svc,.trust-card,.op-card{
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%);
+  transition:transform .2s cubic-bezier(.25,.46,.45,.94),background-color .2s ease,border-color .2s ease;
+}
+.svc:hover,.trust-card:hover,.op-card:hover{transform:translateY(-3px);border-color:rgba(255,106,26,.45);background:#262B1D}
+.trust-card{border-top:3px solid var(--accent)}
+.svc .ic,.info-row .ic{color:var(--accent)}
+.svc h3,.trust-card h3,.info-row .val{color:var(--ink)}
+.svc p,.trust-card p{color:var(--muted)}
+
+/* opinie */
+.op-card blockquote{color:var(--ink-soft)}
+.op-card .op-star,.op-meta .ico-star{color:#FFC61A}
+.op-card .op-autor,.om-autor{color:var(--lime);letter-spacing:.1em;text-transform:uppercase;font-size:.78rem}
+.opinie{background:var(--paper-2)}
+.opinie-mini{background:var(--dark);border-bottom:1px solid rgba(243,241,231,.08)}
+.om-item{padding:var(--space-5);background:transparent;border:0;border-left:2px solid var(--accent)}
+.om-item blockquote{color:var(--ink-soft)}
+.op-google{background:rgba(243,241,231,.05);border-color:rgba(243,241,231,.2);color:var(--ink)}
+.op-google:hover{border-color:var(--accent);background:rgba(255,106,26,.1)}
+
+/* --- 9. SEKCJA SPLIT ------------------------------------------------------ */
+.split-art img{border-radius:2px}
+.split-art{position:relative}
+.split-art::after{
+  content:"";position:absolute;left:-10px;bottom:-10px;width:72px;height:72px;
+  border-left:3px solid var(--accent);border-bottom:3px solid var(--accent);pointer-events:none;
+}
+
+/* --- 10. BRAMY (gateways) - kafle atrakcji ------------------------------- */
+.gateways-band{background:var(--paper-2)}
+.gateway{border-radius:2px;overflow:hidden;position:relative}
+.gateway img{filter:saturate(.82) contrast(1.05) brightness(.86)}
+.gateway:hover img{filter:saturate(1.08) contrast(1.06) brightness(1)}
+.gateway::after{
+  content:"";position:absolute;inset:auto 0 0 0;height:4px;background:var(--accent);
+  transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.16,1,.3,1);z-index:3;
+}
+.gateway:hover::after{transform:scaleX(1)}
+.gateway .g-ttl{
+  font-family:var(--font-display);text-transform:uppercase;letter-spacing:.03em;
+  font-size:1.5rem;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.7);
+}
+
+/* --- 11. GALERIA --------------------------------------------------------- */
+.tile,.m-tile{border-radius:2px;overflow:hidden}
+.tile img,.m-tile img{filter:saturate(.9) contrast(1.04) brightness(.92);
+  transition:filter 1.2s var(--img-ease),transform 1.2s var(--img-ease);transition-delay:0s}
+.tile,.m-tile{transition-delay:0s}
+.tile:hover img{filter:saturate(1.06) contrast(1.05) brightness(1)}
+/* --ink jest teraz JASNY, a silnik używa go jako tła stopklatki - stąd biały pas */
+.stopklatka{background:var(--dark)}
+.stopklatka .stk-bg{filter:saturate(.82) contrast(1.08) brightness(.82)}
+.stopklatka::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,#12140D,transparent 22%,transparent 78%,#12140D);
+}
+
+/* --- 12. CTA + STOPKA ---------------------------------------------------- */
+.cta{background:var(--dark);border-top:1px solid rgba(243,241,231,.1)}
+.cta::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(1100px 520px at 88% 0%,rgba(255,106,26,.14),transparent 72%),
+    radial-gradient(900px 420px at 4% 100%,rgba(188,215,47,.07),transparent 70%);
+}
+.cta h2,.cta p{position:relative;z-index:2}
+.cta p{color:var(--ink-soft)}
+footer{background:#080A04;border-top:1px solid rgba(243,241,231,.1)}
+footer .foot-brand .name{font-family:var(--font-display);text-transform:uppercase;letter-spacing:.04em;color:var(--ink)}
+footer p,footer .foot-col a{color:var(--muted)}
+footer .foot-col a:hover{color:var(--accent)}
+footer h4{color:var(--lime);letter-spacing:.16em;text-transform:uppercase;font-size:.78rem}
+.foot-soc .soc{border-color:rgba(243,241,231,.2);color:var(--ink)}
+.foot-bot{color:var(--muted);border-top-color:rgba(243,241,231,.1)}
+
+/* --- 13. NAGŁÓWEK PODSTRONY --------------------------------------------- */
+.pagehead::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(10,12,6,.7),rgba(10,12,6,.45) 45%,#12140D 100%);
+}
+.pagehead .wrap{position:relative;z-index:3}
+.pagehead h1{font-size:clamp(2.5rem,1.8rem + 3.6vw,4.4rem)}
+
+/* --- 14. FORMULARZ ------------------------------------------------------- */
+.form input,.form textarea,.form select{
+  background:#12140D;border:1px solid rgba(243,241,231,.18);color:var(--ink);border-radius:2px;
+}
+.form input:focus,.form textarea:focus{background:#12140D;border-color:var(--accent)}
+.form input::placeholder,.form textarea::placeholder{color:#7F8570}
+.form .lbl{color:var(--muted);letter-spacing:.1em;text-transform:uppercase;font-size:.76rem}
+
+/* --- 15. PASEK REZERWACJI (sticky) -------------------------------------- */
+.sticky-reserve{background:rgba(10,12,6,.94);border-top:1px solid rgba(243,241,231,.14)}
+.svc-row{transition:box-shadow var(--cta-dur,.72s) var(--cta-ease,ease),
+  border-color var(--cta-dur,.72s) var(--cta-ease,ease),
+  filter var(--cta-dur,.72s) var(--cta-ease,ease),
+  background var(--cta-dur,.72s) var(--cta-ease,ease),
+  color var(--cta-dur,.72s) var(--cta-ease,ease),
+  transform var(--cta-dur,.72s) var(--cta-ease,ease)}
+.sr-book{background:var(--accent);color:#12140D;letter-spacing:.08em;text-transform:uppercase;font-weight:700;border-radius:2px}
+/* tempo zostawiamy silnikowi (0,72 s) - inaczej pasek rezerwacji reaguje inaczej
+   niż reszta klocków i bramka hoveru to wyłapuje */
+.sticky-reserve a:hover,.sticky-reserve a:focus-visible,
+.op-google:hover,.op-google:focus-visible{transform:translateY(-2px)}
+.sr-call{border-color:rgba(243,241,231,.28);color:var(--ink)}
+
+/* --- 16. ŚLAD FARBY jako ozdoba sekcji ---------------------------------- */
+.plama{position:absolute;pointer-events:none;z-index:0;opacity:.14;filter:blur(.2px)}
+.plama-lime{color:var(--lime)}
+.plama-orange{color:var(--accent)}
+.wrap{position:relative;z-index:1}
+
+/* ==========================================================================
+   17. EKRAN ŁADOWANIA (kurtyna z logo + salwa farby)
+   ========================================================================== */
+#wejscie{
+  display:none;position:fixed;inset:0;z-index:9999;
+  background:#0A0C06;
+  align-items:center;justify-content:center;flex-direction:column;
+  will-change:clip-path;
+}
+.intro-on #wejscie{display:flex}
+.intro-on{overflow:hidden}
+
+#wejscie .w-tlo{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(60% 50% at 50% 45%,rgba(255,106,26,.13),transparent 70%),
+    repeating-linear-gradient(135deg,rgba(243,241,231,.03) 0 2px,transparent 2px 10px);
+}
+/* kapiąca farba na dolnej krawędzi kurtyny */
+#wejscie .w-kapie{
+  position:absolute;left:0;right:0;top:100%;height:70px;
+  background:
+    radial-gradient(28px 46px at 8% 0,#0A0C06 49%,transparent 50%),
+    radial-gradient(20px 66px at 21% 0,#0A0C06 49%,transparent 50%),
+    radial-gradient(34px 34px at 37% 0,#0A0C06 49%,transparent 50%),
+    radial-gradient(22px 58px at 52% 0,#0A0C06 49%,transparent 50%),
+    radial-gradient(30px 40px at 68% 0,#0A0C06 49%,transparent 50%),
+    radial-gradient(18px 70px at 81% 0,#0A0C06 49%,transparent 50%),
+    radial-gradient(26px 44px at 94% 0,#0A0C06 49%,transparent 50%);
+  background-repeat:no-repeat;
+}
+#wejscie .w-splat{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+
+/* ZNAK: ten sam element co w pasku. Maska + blur-to-sharp, skala 1,045 -> 1.
+   Bez fade+scale, bez drop-shadow (poświata robi jasny prostokąt na iOS). */
+.intro-gotowe .brand-has-logo .brand-logo{
+  position:fixed;left:50%;top:50%;
+  width:var(--i-w);height:var(--i-h);max-width:none;
+  transform:translate(-50%,-50%) scale(1.045);
+  clip-path:inset(0 100% 0 0);
+  filter:blur(14px);
+  z-index:10000;
+  transition:clip-path .54s cubic-bezier(.16,1,.3,1),
+             filter .54s cubic-bezier(.16,1,.3,1),
+             transform .74s cubic-bezier(.16,.84,.44,1);
+}
+.intro-gotowe.intro-gra .brand-has-logo .brand-logo{
+  clip-path:inset(0 0 0 0);filter:blur(0);
+  transform:translate(-50%,-50%) scale(1);
+}
+.intro-gotowe.intro-out .brand-has-logo .brand-logo{
+  transform:translate(calc(-50% + var(--i-px)),calc(-50% + var(--i-py))) scale(var(--i-zmniejsz));
+}
+/* miejsce po logo w pasku zostaje zarezerwowane - nagłówek nie zapada się */
+.intro-gotowe .brand-has-logo{width:var(--i-baza-w);height:var(--znak-h);display:block;flex:none}
+.intro-gotowe .nav{z-index:10000}
+.intro-znak .nav{backdrop-filter:none;background:transparent;border-bottom-color:transparent}
+.intro-poza .nav{transition:background-color .4s ease}
+.intro-znak .nav-links,.intro-znak .nav-toggle{opacity:0}
+.intro-poza .nav-links,.intro-poza .nav-toggle{opacity:1;transition:opacity .45s ease}
+
+/* TAKT 2: kreska celownika pod znakiem */
+#wejscie .w-kreska{
+  position:absolute;left:50%;top:50%;z-index:2;
+  transform:translateX(-50%);
+  margin-top:calc(var(--i-w,280px) * .60);
+  width:min(52vw,260px);height:2px;background:rgba(243,241,231,.20);overflow:hidden;
+}
+#wejscie .w-kreska i{
+  position:absolute;inset:0;display:block;background:var(--accent);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .46s cubic-bezier(.16,1,.3,1) .14s;
+}
+.intro-gra #wejscie .w-kreska i{transform:scaleX(1)}
+#wejscie .w-podpis{
+  position:absolute;left:50%;top:50%;z-index:2;
+  transform:translateX(-50%) translateY(6px);
+  margin-top:calc(var(--i-w,280px) * .60 + 20px);
+  font-family:var(--font-display);text-transform:uppercase;letter-spacing:.38em;
+  font-size:.7rem;color:rgba(243,241,231,.52);white-space:nowrap;
+  opacity:0;transition:opacity .42s ease .22s,transform .42s ease .22s;
+}
+.intro-gra #wejscie .w-podpis{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* TAKT 3: salwa farby - plamy wystrzeliwują zza znaku */
+#wejscie .w-plama{
+  position:absolute;left:50%;top:50%;z-index:1;
+  width:calc(var(--i-w,280px) * var(--p-w));height:calc(var(--i-w,280px) * var(--p-w));
+  margin-left:calc(var(--i-w,280px) * var(--p-x));
+  margin-top:calc(var(--i-w,280px) * var(--p-y));
+  transform:translate(-50%,-50%) scale(.1) rotate(var(--p-rot));
+  opacity:0;
+}
+#wejscie .w-plama svg{display:block;width:100%;height:100%}
+.intro-gra #wejscie .w-plama{
+  animation:w-plask .72s cubic-bezier(.16,1,.3,1) var(--p-op) forwards;
+}
+@keyframes w-plask{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.1) rotate(var(--p-rot))}
+  30%{opacity:.9}
+  100%{opacity:.85;transform:translate(-50%,-50%) scale(1) rotate(var(--p-rot))}
+}
+
+/* ODSŁONA: krawędź jedzie w górę. Wolny start, żeby znak zdążył ją wyprzedzić. */
+.intro-on #wejscie{
+  clip-path:inset(0 0 0 0);
+  transition:clip-path .64s cubic-bezier(.66,0,.24,1);
+}
+.intro-on.intro-out #wejscie{clip-path:inset(0 0 100% 0)}
+
+@media (prefers-reduced-motion:reduce){
+  #wejscie{display:none !important}
+  .intro-on{overflow:auto}
+}
+
+/* ==========================================================================
+   18. ROZBRYZG FARBY PO KLIKNIĘCIU W PRZYCISK
+   ========================================================================== */
+.farba-warstwa{
+  position:fixed;inset:0;z-index:9998;pointer-events:none;overflow:hidden;
+}
+.farba{
+  position:absolute;transform:translate(-50%,-50%) scale(.2) rotate(var(--rot,0deg));
+  opacity:0;will-change:transform,opacity;
+  animation:farba-plask .82s cubic-bezier(.16,1,.3,1) forwards;
+}
+.farba svg{display:block;width:100%;height:100%}
+@keyframes farba-plask{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.15) rotate(var(--rot,0deg))}
+  12%{opacity:1}
+  48%{transform:translate(-50%,-50%) scale(1.04) rotate(var(--rot,0deg))}
+  66%{opacity:1}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(1.12) rotate(var(--rot,0deg))}
+}
+.kropla{
+  position:absolute;border-radius:50%;opacity:0;
+  transform:translate(-50%,-50%);
+  animation:kropla-lot .78s cubic-bezier(.22,.9,.3,1) forwards;
+}
+@keyframes kropla-lot{
+  0%{opacity:0;transform:translate(-50%,-50%) translate(0,0) scale(.4)}
+  12%{opacity:1}
+  62%{opacity:1}
+  100%{opacity:0;transform:translate(-50%,-50%) translate(var(--dx),var(--dy)) scale(1)}
+}
+@media (prefers-reduced-motion:reduce){
+  .farba-warstwa{display:none}
+}
+
+/* --- 19. drobne dociągnięcia układu ------------------------------------- */
+@media (max-width:760px){
+  .hero-cine::after{background:linear-gradient(180deg,rgba(10,12,6,.6) 0%,rgba(10,12,6,.68) 45%,rgba(10,12,6,.8) 84%,#12140D 100%)}
+  .hero-cine h1{font-size:clamp(2.1rem,1.5rem + 3.6vw,2.8rem)}
+  .strip .item{padding-left:var(--space-4)}
+}
+
+/* --- 20. TAKTY DNIA (nowa sekcja: zbiórka -> gra -> ognisko) ------------- */
+.takty{background:var(--paper)}
+.takty-row{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:var(--space-5);margin-top:var(--space-7);
+}
+.takt{
+  position:relative;padding:var(--space-7) var(--space-6) var(--space-6);
+  background:var(--paper-3);border:1px solid rgba(243,241,231,.10);
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 18px),calc(100% - 18px) 100%,0 100%);
+  transition:transform .2s cubic-bezier(.25,.46,.45,.94),border-color .2s ease,background-color .2s ease;
+}
+.takt::before{content:"";position:absolute;left:0;top:0;width:3px;height:64px;background:var(--accent)}
+.takt:hover{transform:translateY(-3px);border-color:rgba(188,215,47,.4);background:#262B1D}
+.takt .t-num{
+  display:block;font-family:var(--font-display);font-size:2.6rem;line-height:1;
+  color:rgba(255,106,26,.9);letter-spacing:.02em;margin-bottom:var(--space-3);
+}
+.takt h3{margin:0 0 var(--space-3);text-transform:uppercase;letter-spacing:.03em;color:var(--ink);font-size:1.28rem}
+.takt p{margin:0;color:var(--muted);font-size:var(--text-base)}
+
+/* numer na kaflu atrakcji */
+.gateway .g-num{
+  position:absolute;top:var(--space-4);left:var(--space-5);z-index:3;
+  font-family:var(--font-display);font-size:.92rem;letter-spacing:.24em;
+  color:var(--lime);text-shadow:0 2px 10px rgba(0,0,0,.8);
+}

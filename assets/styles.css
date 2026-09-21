@@ -6,17 +6,18 @@
 
 :root{
   /* PALETA — jasna, architektoniczna, chłodna */
-  --paper:#F4F1EC;          /* główne tło */
-  --paper-2:#E9E4DB;        /* sekcje alternatywne (chłodny jasny szary) */
-  --paper-3:#E9E4DB;        /* delikatne wypełnienia */
-  --ink:#14110F;            /* tekst główny — chłodny grafit */
-  --ink-soft:#26211C;       /* nagłówki drugorzędne */
-  --muted:#8A857C;          /* tekst poboczny */
-  --line:rgba(20,17,15,.12);/* hairline */
-  --accent:#E0A040;         /* stonowany petrol-slate — jedyny akcent */
-  --accent-d:#B97E27;
-  --accent-soft:rgba(224,160,64,.10);
-  --dark:#14110F;           /* sekcje ciemne (stopka/CTA) */
+  --paper:#12140D;          /* główne tło - oliwkowa czerń poligonu */
+  --paper-2:#191C11;        /* sekcje alternatywne */
+  --paper-3:#22261A;        /* karty i wypełnienia */
+  --ink:#F3F1E7;            /* tekst główny - kość */
+  --ink-soft:#E4E1D3;       /* nagłówki drugorzędne */
+  --muted:#A9AF95;          /* tekst poboczny */
+  --line:rgba(243,241,231,.16);/* hairline */
+  --accent:#FF6A1A;         /* pomarańcz kulki paintballowej */
+  --accent-d:#FF8B3D;
+  --accent-soft:rgba(255,106,26,.13);
+  --lime:#BCD72F;           /* limonka z logo - drugi akcent */
+  --dark:#0A0C06;           /* sekcje najciemniejsze (stopka/CTA) */
 
   /* HOVER ZDJĘĆ — JEDEN standard dla całego silnika (decyzja K. 04.08.2026, artefakt z wariantami).
      AKTUALNE (K.+Szymon 09.08.2026, wybór z artefaktu 6 wariantów): zoom 1.05 przy 1.4s -
@@ -1543,13 +1544,13 @@ footer{view-transition-name:mt-foot}
 
 
 /* === auto-paleta z marki klienta (źródło: logo) === */
-:root{--accent:#7D6F3A;--accent-d:#695B25;--accent-soft:rgba(125,111,58,0.10);--paper:#FBFAF8;--paper-2:#F1F0ED;--paper-3:#E7E6E2;--ink:#22201C;--ink-soft:#494842;--muted:#7D7C77;--line:rgba(34,32,28,.12);}
-.btn-accent{color:#fff}
-.nav .nav-links a.btn-accent{color:#fff}
-.btn-accent[data-accent-d],.cta-d .btn-accent{color:#fff}
+:root{--accent:#FF6A1A;--accent-d:#FF8B3D;--accent-soft:rgba(255,106,26,0.13);--lime:#BCD72F;--paper:#12140D;--paper-2:#191C11;--paper-3:#22261A;--ink:#F3F1E7;--ink-soft:#E4E1D3;--muted:#A9AF95;--line:rgba(243,241,231,.16);--dark:#0A0C06;}
+.btn-accent{color:#12140D}
+.nav .nav-links a.btn-accent{color:#12140D}
+.btn-accent[data-accent-d],.cta-d .btn-accent{color:#12140D}
 
 /* === szary tekst dociągnięty do czytelności (WCAG 4.5 na wszystkich tłach) === */
-:root{--muted:#686763;}
+:root{--muted:#A9AF95;--accent-text:#FF8B3D;}
 
 /* === opinie: rodzina base nie ma tej siatki, a strona ją wypisuje === */
 .opinie-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--space-5,24px);margin-top:var(--space-6,32px)}

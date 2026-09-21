@@ -22,8 +22,45 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css?v=230c31f0">
+<link rel="stylesheet" href="assets/paintball.css?v=pb1">
+<link rel="preload" as="image" href="img/logo.png" fetchpriority="high">
+<script>
+/* Ekran powitalny zapalamy PRZED narysowaniem strony (bez defer - inaczej przez
+   ułamek sekundy widać stronę, a dopiero potem kurtynę). Gra raz na wizytę. */
+(function(){
+  try{
+    var h=document.documentElement;
+    var powtorz=/[?&]intro(\b|=)/.test(location.search);
+    var bylo=false; try{ bylo=sessionStorage.getItem('sz-wejscie')==='1'; }catch(e){}
+    var wolne=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(wolne||(bylo&&!powtorz)) return;
+    h.className+=(h.className?' ':'')+'intro-on intro-znak';
+    try{ sessionStorage.setItem('sz-wejscie','1'); }catch(e){}
+    /* twardy bezpiecznik liczony od PARSOWANIA: gdy strona dochodzi wolno, lepiej
+       odpuścić wejście niż trzymać człowieka przed kurtyną */
+    setTimeout(function(){
+      if(h.className.indexOf('intro-gotowe')<0){
+        h.className=h.className.replace(/\bintro-(on|znak)\b/g,'').trim()+' intro-poza';
+      }
+    },4000);
+  }catch(e){}
+})();
+</script>
 </head>
 <body>
+
+<div id="wejscie" aria-hidden="true">
+  <div class="w-tlo"></div>
+  <div class="w-splat">
+    <span class="w-plama" style="--p-w:.82;--p-x:-.76;--p-y:-.26;--p-rot:-14deg;--p-op:.08s"><svg viewBox="0 0 200 200" aria-hidden="true"><g fill="#FF6A1A"><path d="M168.3,100.0C174.1,113.7 188.5,142.8 181.4,152.3C174.4,161.8 140.8,157.1 126.0,156.9C111.2,156.7 103.5,152.9 92.7,150.9C81.9,148.9 67.6,151.0 61.2,144.7C54.9,138.5 56.5,123.4 54.4,113.4C52.3,103.4 48.5,95.8 48.5,84.9C48.6,73.9 47.4,54.6 54.6,47.6C61.8,40.6 79.2,45.3 91.8,43.0C104.4,40.7 121.1,29.3 130.2,33.8C139.4,38.3 140.3,59.0 146.7,70.0C153.0,81.0 162.5,86.3 168.3,100.0Z"/><circle cx="185.0" cy="92.2" r="5.8"/><circle cx="185.7" cy="137.7" r="7.8"/><circle cx="29.5" cy="85.7" r="6.6"/><circle cx="11.5" cy="93.1" r="7.2"/></g></svg></span>
+    <span class="w-plama" style="--p-w:.66;--p-x:.70;--p-y:.22;--p-rot:26deg;--p-op:.16s"><svg viewBox="0 0 200 200" aria-hidden="true"><g fill="#BCD72F"><path d="M164.1,100.0C162.9,110.8 154.8,123.7 147.1,130.3C139.5,136.9 127.2,135.4 118.0,139.5C108.9,143.6 100.9,155.0 92.1,155.1C83.3,155.2 72.0,147.0 65.2,140.1C58.5,133.3 55.7,123.8 51.5,114.2C47.4,104.6 38.3,92.0 40.1,82.4C41.9,72.8 53.6,61.7 62.4,56.6C71.2,51.5 82.4,54.6 93.1,52.1C103.8,49.5 116.6,39.3 126.7,41.5C136.9,43.6 147.9,55.5 154.1,65.2C160.3,75.0 165.2,89.2 164.1,100.0Z"/><circle cx="195.8" cy="100.7" r="8.5"/><circle cx="177.9" cy="139.3" r="5.0"/><circle cx="60.5" cy="165.2" r="6.7"/><circle cx="140.1" cy="158.3" r="3.9"/></g></svg></span>
+    <span class="w-plama" style="--p-w:.45;--p-x:.62;--p-y:-.46;--p-rot:-40deg;--p-op:.22s"><svg viewBox="0 0 200 200" aria-hidden="true"><g fill="#FFC61A"><path d="M149.6,100.0C148.8,110.1 147.9,117.7 144.6,128.7C141.4,139.6 139.3,157.5 130.0,165.8C120.7,174.0 101.3,180.3 88.8,178.1C76.2,175.9 63.2,162.3 54.6,152.4C46.0,142.4 44.4,131.4 37.5,118.4C30.5,105.4 9.6,85.8 12.9,74.4C16.1,63.0 43.7,56.2 56.8,50.1C69.8,44.0 80.8,36.5 91.1,37.9C101.4,39.4 109.0,54.0 118.7,59.0C128.5,64.1 144.3,61.4 149.5,68.2C154.6,75.0 150.4,89.9 149.6,100.0Z"/><circle cx="182.6" cy="122.4" r="5.0"/><circle cx="164.0" cy="136.2" r="4.8"/></g></svg></span>
+    <span class="w-plama" style="--p-w:.42;--p-x:-.58;--p-y:.46;--p-rot:62deg;--p-op:.28s"><svg viewBox="0 0 200 200" aria-hidden="true"><g fill="#27B8E8"><path d="M159.6,100.0C162.0,110.0 159.5,125.2 153.9,134.7C148.3,144.2 136.1,155.5 126.0,157.0C116.0,158.5 105.5,144.6 93.7,143.7C82.0,142.8 68.2,154.6 55.5,151.4C42.8,148.1 18.1,135.1 17.6,124.2C17.1,113.3 47.0,99.9 52.2,86.0C57.4,72.1 41.9,46.8 48.7,40.8C55.4,34.8 77.6,54.5 92.8,49.8C108.0,45.2 131.9,8.9 139.7,13.0C147.5,17.1 136.2,60.1 139.6,74.6C142.9,89.1 157.2,90.0 159.6,100.0Z"/><circle cx="69.2" cy="30.1" r="6.8"/><circle cx="160.8" cy="71.3" r="9.2"/></g></svg></span>
+  </div>
+  <div class="w-kreska"><i></i></div>
+  <div class="w-podpis">Paintball · Off-road · Ognisko</div>
+  <div class="w-kapie"></div>
+</div>
 
 <header class="nav">
   <div class="wrap nav-inner">
@@ -40,22 +77,98 @@
   </div>
 </header>
 
+<script>
+/* Ekran powitalny: znak z kurtyny to TEN SAM element co logo w pasku.
+   Takty: znak (maska + wyostrzenie) -> kreska celownika -> salwa farby -> odsłona.
+   Bezpieczniki: sufit czasu, klik/scroll/klawisz przerywa, brak loga = zero wejścia. */
+(function(){
+  var h=document.documentElement;
+  if(h.className.indexOf('intro-on')<0) return;
+  var kurtyna=document.getElementById('wejscie');
+  var znak=document.querySelector('.brand-has-logo');
+  var obraz=znak&&znak.querySelector('.brand-logo');
+  var MIN=600, SUFIT=980, CZEKANIE=1400;
+  var start=0, ruszylo=false, zamkniete=false, zaladowane=false;
+
+  function sprzataj(){
+    zamkniete=true;
+    h.classList.remove('intro-on','intro-znak','intro-gotowe','intro-gra','intro-out');
+    h.classList.add('intro-poza');
+  }
+  function odpusc(){ if(!zamkniete) sprzataj(); }
+  if(!kurtyna||!obraz){ odpusc(); return; }
+
+  function koniec(){
+    if(zamkniete||!ruszylo||h.classList.contains('intro-out')) return;
+    h.classList.add('intro-out');
+    setTimeout(function(){ if(!zamkniete) sprzataj(); }, 900);
+  }
+  function heroGotowe(){
+    var im=document.querySelector('.hero-cine img');
+    return !!(im&&im.complete&&im.naturalWidth>0);
+  }
+  function moze(){
+    if(zamkniete) return;
+    if(Date.now()-start>=MIN&&(heroGotowe()||zaladowane)) koniec();
+    else setTimeout(moze,70);
+  }
+  function graj(){
+    if(zamkniete||ruszylo) return;
+    ruszylo=true; start=Date.now();
+    /* pomiar robimy na logu, które stoi jeszcze w pasku - stąd bierzemy cel przelotu */
+    var r=obraz.getBoundingClientRect();
+    if(!r.width){ odpusc(); return; }
+    var sufitPx=690/Math.min(window.devicePixelRatio||1,3);
+    var cel=(window.innerWidth<680)?Math.min(window.innerWidth*0.56,240)
+                                   :Math.min(window.innerWidth*0.26,300);
+    cel=Math.max(r.width,Math.min(cel,sufitPx));
+    h.style.setProperty('--i-w',Math.round(cel)+'px');
+    h.style.setProperty('--i-h',Math.round(cel*681/690)+'px');
+    h.style.setProperty('--i-zmniejsz',(r.width/cel).toFixed(4));
+    h.style.setProperty('--i-px',Math.round(r.left+r.width/2-window.innerWidth/2)+'px');
+    h.style.setProperty('--i-py',Math.round(r.top+r.height/2-window.innerHeight/2)+'px');
+    h.style.setProperty('--i-baza-w',Math.round(r.width)+'px');
+    h.style.setProperty('--znak-h',Math.round(r.height)+'px');
+    h.classList.add('intro-gotowe');
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){
+      h.classList.add('intro-gra');
+      setTimeout(moze,MIN);
+      setTimeout(koniec,SUFIT);
+    }); });
+  }
+  function pobrane(){ return obraz.complete&&obraz.naturalWidth>0; }
+  function zacznij(){ if(obraz.decode) obraz.decode().then(graj,graj); else graj(); }
+  if(pobrane()) zacznij();
+  else{
+    obraz.addEventListener('load',zacznij);
+    obraz.addEventListener('error',odpusc);
+    setTimeout(function(){ pobrane()?zacznij():odpusc(); },CZEKANIE);
+  }
+  window.addEventListener('load',function(){ zaladowane=true; });
+  setTimeout(function(){ if(!zamkniete) sprzataj(); },3600);
+  ['click','touchstart','keydown','wheel'].forEach(function(z){
+    window.addEventListener(z,function(){ ruszylo?koniec():odpusc(); },{once:true,passive:true});
+  });
+})();
+</script>
+
 <main>
 <section class="hero-cine">
   <img src="img/hero.jpg" fetchpriority="high" alt="Strefa ZERO Antoniewo - Adrenalina zaczyna się tam, gdzie kończy się asfalt" width="1600" height="1200">
   <div class="wrap">
     <div class="hero-copy">
-      <div class="brandmark bm-s"><span class="bm-line"><span>Strefa ZERO Antoniewo</span></span></div>
-      <h1>Adrenalina zaczyna się tam, gdzie kończy się asfalt</h1>
+      <div class="brandmark bm-s"><span class="bm-line"><span>Antoniewo · gm. Gozdowo</span></span></div>
+      <h1>Adrenalina zaczyna się tam, <em>gdzie kończy się asfalt</em></h1>
       <p class="lead">Duże pole paintballowe w terenie, prawdziwy sprzęt wojskowy i ognisko na koniec dnia. Przyjeżdżasz z ekipą, z firmą albo z rodziną - markery, maski, instruktaż i scenariusze gier czekają na miejscu.</p>
       <div class="hero-actions">
-        <a href="realizacje.html" class="btn btn-accent">Zobacz galerię <span class="arr">→</span></a>
-        <a href="kontakt.html" class="btn btn-ghost btn-on-dark">Skontaktuj się</a>
+        <a href="oferta.html" class="btn btn-accent">Sprawdź atrakcje <span class="arr">→</span></a>
+        <a href="tel:+48600344021" class="btn btn-ghost btn-on-dark">+48 600 344 021</a>
       </div>
-      <div style="margin-top:var(--space-6);color:#fff;font-weight:600;letter-spacing:.02em;opacity:.92"><span class="g-badge"><svg class="gb-ico" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg><b class="gb-ocena">4,9</b><svg class="gb-stars" viewBox="0 0 90 18" width="74" height="14.8" aria-hidden="true"><g fill="currentColor" opacity=".26"><path transform="translate(0,0)" d="M9 1.6l2.2 4.46 4.92.72-3.56 3.47.84 4.9L9 12.74l-4.4 2.31.84-4.9L1.88 6.68l4.92-.72L9 1.6Z"/><path transform="translate(18,0)" d="M9 1.6l2.2 4.46 4.92.72-3.56 3.47.84 4.9L9 12.74l-4.4 2.31.84-4.9L1.88 6.68l4.92-.72L9 1.6Z"/><path transform="translate(36,0)" d="M9 1.6l2.2 4.46 4.92.72-3.56 3.47.84 4.9L9 12.74l-4.4 2.31.84-4.9L1.88 6.68l4.92-.72L9 1.6Z"/><path transform="translate(54,0)" d="M9 1.6l2.2 4.46 4.92.72-3.56 3.47.84 4.9L9 12.74l-4.4 2.31.84-4.9L1.88 6.68l4.92-.72L9 1.6Z"/><path transform="translate(72,0)" d="M9 1.6l2.2 4.46 4.92.72-3.56 3.47.84 4.9L9 12.74l-4.4 2.31.84-4.9L1.88 6.68l4.92-.72L9 1.6Z"/></g><clipPath id="gs980"><rect x="0" y="0" width="88.2" height="18"/></clipPath><g fill="#FBBC04" clip-path="url(#gs980)"><path transform="translate(0,0)" d="M9 1.6l2.2 4.46 4.92.72-3.56 3.47.84 4.9L9 12.74l-4.4 2.31.84-4.9L1.88 6.68l4.92-.72L9 1.6Z"/><path transform="translate(18,0)" d="M9 1.6l2.2 4.46 4.92.72-3.56 3.47.84 4.9L9 12.74l-4.4 2.31.84-4.9L1.88 6.68l4.92-.72L9 1.6Z"/><path transform="translate(36,0)" d="M9 1.6l2.2 4.46 4.92.72-3.56 3.47.84 4.9L9 12.74l-4.4 2.31.84-4.9L1.88 6.68l4.92-.72L9 1.6Z"/><path transform="translate(54,0)" d="M9 1.6l2.2 4.46 4.92.72-3.56 3.47.84 4.9L9 12.74l-4.4 2.31.84-4.9L1.88 6.68l4.92-.72L9 1.6Z"/><path transform="translate(72,0)" d="M9 1.6l2.2 4.46 4.92.72-3.56 3.47.84 4.9L9 12.74l-4.4 2.31.84-4.9L1.88 6.68l4.92-.72L9 1.6Z"/></g></svg><span class="gb-txt">68 opinii w Google</span></span></div>
+      <div style="margin-top:var(--space-4);color:#fff;font-weight:600;letter-spacing:.02em;opacity:.92"><span class="g-badge"><svg class="gb-ico" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg><b class="gb-ocena">4,9</b><svg class="gb-stars" viewBox="0 0 90 18" width="74" height="14.8" aria-hidden="true"><g fill="currentColor" opacity=".26"><path transform="translate(0,0)" d="M9 1.6l2.2 4.46 4.92.72-3.56 3.47.84 4.9L9 12.74l-4.4 2.31.84-4.9L1.88 6.68l4.92-.72L9 1.6Z"/><path transform="translate(18,0)" d="M9 1.6l2.2 4.46 4.92.72-3.56 3.47.84 4.9L9 12.74l-4.4 2.31.84-4.9L1.88 6.68l4.92-.72L9 1.6Z"/><path transform="translate(36,0)" d="M9 1.6l2.2 4.46 4.92.72-3.56 3.47.84 4.9L9 12.74l-4.4 2.31.84-4.9L1.88 6.68l4.92-.72L9 1.6Z"/><path transform="translate(54,0)" d="M9 1.6l2.2 4.46 4.92.72-3.56 3.47.84 4.9L9 12.74l-4.4 2.31.84-4.9L1.88 6.68l4.92-.72L9 1.6Z"/><path transform="translate(72,0)" d="M9 1.6l2.2 4.46 4.92.72-3.56 3.47.84 4.9L9 12.74l-4.4 2.31.84-4.9L1.88 6.68l4.92-.72L9 1.6Z"/></g><clipPath id="gs980"><rect x="0" y="0" width="88.2" height="18"/></clipPath><g fill="#FBBC04" clip-path="url(#gs980)"><path transform="translate(0,0)" d="M9 1.6l2.2 4.46 4.92.72-3.56 3.47.84 4.9L9 12.74l-4.4 2.31.84-4.9L1.88 6.68l4.92-.72L9 1.6Z"/><path transform="translate(18,0)" d="M9 1.6l2.2 4.46 4.92.72-3.56 3.47.84 4.9L9 12.74l-4.4 2.31.84-4.9L1.88 6.68l4.92-.72L9 1.6Z"/><path transform="translate(36,0)" d="M9 1.6l2.2 4.46 4.92.72-3.56 3.47.84 4.9L9 12.74l-4.4 2.31.84-4.9L1.88 6.68l4.92-.72L9 1.6Z"/><path transform="translate(54,0)" d="M9 1.6l2.2 4.46 4.92.72-3.56 3.47.84 4.9L9 12.74l-4.4 2.31.84-4.9L1.88 6.68l4.92-.72L9 1.6Z"/><path transform="translate(72,0)" d="M9 1.6l2.2 4.46 4.92.72-3.56 3.47.84 4.9L9 12.74l-4.4 2.31.84-4.9L1.88 6.68l4.92-.72L9 1.6Z"/></g></svg><span class="gb-txt">68 opinii w Google</span></span></div>
     </div>
   </div>
 </section>
+<div class="tasma" aria-hidden="true"></div>
 <section class="strip n-5" style="padding-block:0">
   <div class="wrap">
     <div class="item reveal"><div class="k">Paintball</div><div class="v">na dużym polu</div></div>
@@ -74,6 +187,48 @@
     </div>
   </div>
 </section>
+<div class="tasma tasma-cienka" aria-hidden="true"></div>
+<section class="gateways-band">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Atrakcje</span>
+      <h2>Wybierasz teren, my dowozimy resztę</h2>
+      <p>Jedno miejsce, kilka atrakcji. Można je łączyć w jeden dzień albo wziąć tylko to, na co masz ochotę.</p>
+    </div>
+    <div class="gateways">
+      <a href="oferta.html" class="gateway reveal"><img src="img/g2.jpg" alt="Pole paintballowe w Strefie ZERO" loading="eager" width="1564" height="864" decoding="async"><span class="g-num">01</span><span class="g-ttl">Paintball</span></a>
+      <a href="oferta.html" class="gateway reveal"><img src="img/g3.jpg" alt="Ognisko z rusztem w Strefie ZERO" loading="eager" width="1600" height="1066" decoding="async"><span class="g-num">02</span><span class="g-ttl">Ognisko i czas przy ogniu</span></a>
+      <a href="oferta.html" class="gateway reveal"><img src="img/g4.jpg" alt="Urodziny i imprezy prywatne w Strefie ZERO" loading="eager" width="1600" height="1066" decoding="async"><span class="g-num">03</span><span class="g-ttl">Urodziny i imprezy</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="takty">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Jak to wygląda</span>
+      <h2>Trzy takty jednego dnia</h2>
+    </div>
+    <div class="takty-row">
+      <div class="takt reveal">
+        <span class="t-num">01</span>
+        <h3>Zbiórka i instruktaż</h3>
+        <p>Pokazujemy, jak działa marker i maska, ustawiamy zasady i dzielimy ekipę na drużyny. Doświadczenie nie jest potrzebne.</p>
+      </div>
+      <div class="takt reveal">
+        <span class="t-num">02</span>
+        <h3>Gra na polu</h3>
+        <p>Bunkry z opon, beczek i palet rozrzucone po naturalnym terenie. Scenariusze dobieramy do grupy, od szybkich potyczek po dłuższe rozgrywki.</p>
+      </div>
+      <div class="takt reveal">
+        <span class="t-num">03</span>
+        <h3>Ognisko na koniec</h3>
+        <p>Miejsce na ognisko z kociołkiem i rusztem. To zwykle wtedy ludzie zostają dłużej, niż planowali.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section>
   <div class="wrap split">
     <div class="split-art reveal"><img src="img/g1.jpg" alt="Strefa ZERO Antoniewo - teren gry" loading="lazy" width="1600" height="1200" decoding="async"></div>
@@ -86,15 +241,8 @@
     </div>
   </div>
 </section>
-<section class="gateways-band">
-  <div class="wrap">
-    <div class="gateways">
-      <a href="oferta.html" class="gateway reveal"><img src="img/g2.jpg" alt="Paintball" loading="lazy" width="1564" height="864" decoding="async"><span class="g-ttl">Paintball</span></a>
-      <a href="oferta.html" class="gateway reveal"><img src="img/g3.jpg" alt="Ognisko i czas przy ogniu" loading="lazy" width="1600" height="1066" decoding="async"><span class="g-ttl">Ognisko i czas przy ogniu</span></a>
-      <a href="oferta.html" class="gateway reveal"><img src="img/g4.jpg" alt="Urodziny i imprezy prywatne" loading="lazy" width="1600" height="1066" decoding="async"><span class="g-ttl">Urodziny i imprezy prywatne</span></a>
-    </div>
-  </div>
-</section>
+
+<div class="tasma" aria-hidden="true"></div>
 <section class="stopklatka" aria-hidden="true">
   <div class="stk-bg" style="background-image:url(img/g5.jpg)"></div>
 </section>
@@ -179,5 +327,6 @@
 <div class="demo-wazne" data-do="2026-09-27" data-cykl="3" hidden><svg class="dw-ico" width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.6" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.2V12l3.3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span class="dw-txt"></span></div>
 
 <script src="assets/main.js"></script>
+<script src="assets/paintball.js?v=pb1"></script>
 </body>
 </html>
